@@ -630,6 +630,7 @@ int tst_type_freevalues (const int type, char * buffer, const int values_num)
           }                                                                                      \
 */
 
+// TODO(ben): copy values to device
 #define TST_TYPE_SET(tst_type,c_type,c_type_caps)                                                \
   case tst_type:                                                                                 \
     {                                                                                            \
@@ -652,6 +653,7 @@ int tst_type_freevalues (const int type, char * buffer, const int values_num)
     }
 
 
+// TODO(ben): copy values to device
 #define TST_TYPE_SET_UNSIGNED(tst_type,c_type,c_type_caps)                                       \
   case tst_type:                                                                                 \
     {                                                                                            \
@@ -935,8 +937,13 @@ int tst_type_setvalue (int type, char * buffer, int type_set, long long direct_v
 {
   CHECK_ARG (type, -1);
 
+#ifdef USE_DEVICE_BUFFERS
+  cudaMemset (buffer, DEFAULT_INIT_BYTE, tst_type_gettypesize (type));
+  cudaDeviceSynchronize();
+#else
   memset (buffer, DEFAULT_INIT_BYTE, tst_type_gettypesize (type));
-
+#endif
+  
   /* Workaround a small problem. In many tests we want to set
    * a float or a double or a long double to 0. This is all
    * well and good, but if I was to set it by value,
@@ -987,6 +994,7 @@ int tst_type_setvalue (int type, char * buffer, int type_set, long long direct_v
         TST_TYPE_SET (TST_MPI_UB, char, CHAR);
       */
 
+/*
       TST_TYPE_SET_STRUCT (TST_MPI_FLOAT_INT, struct tst_mpi_float_int, FLT);
       TST_TYPE_SET_STRUCT (TST_MPI_DOUBLE_INT, struct tst_mpi_double_int, DBL);
       TST_TYPE_SET_STRUCT (TST_MPI_LONG_INT, struct tst_mpi_long_int, LONG);
@@ -1005,7 +1013,8 @@ int tst_type_setvalue (int type, char * buffer, int type_set, long long direct_v
       TST_TYPE_SET_STRUCT_MIX (TST_MPI_TYPE_MIX, struct tst_mpi_type_mix, NOT_USED);
       TST_TYPE_SET_STRUCT_MIX_ARRAY (TST_MPI_TYPE_MIX_ARRAY, struct tst_mpi_type_mix_array, NOT_USED);
       TST_TYPE_SET_STRUCT_MIX_LB_UB (TST_MPI_TYPE_MIX_LB_UB, NOT_USED, NOT_USED);
-
+*/
+      
 /*
       TST_TYPE_SET (TST_MPI_COMPLEX
       TST_TYPE_SET (TST_MPI_DOUBLE_COMPLEX
