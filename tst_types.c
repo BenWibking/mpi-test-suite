@@ -19,7 +19,7 @@
 #  include <strings.h>
 #endif
 #ifdef USE_DEVICE_BUFFERS
-#  include <cuda.h>
+#  include <cuda_runtime_api.h>
 #endif
 #include <mpi.h>
 #include "mpi_test_suite.h"

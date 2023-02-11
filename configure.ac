@@ -57,7 +57,8 @@ AC_ARG_ENABLE([device-buffers],
     [enable_device_buffers=yes])
 AS_IF([test "$enable_device_buffers" = "yes"],[
     AC_DEFINE([USE_DEVICE_BUFFERS], [1], [Define to enable allocating MPI buffers on the GPU device.])
-    AC_CHECK_HEADER([cuda.h], [cuda_found=yes], [AC_MSG_ERROR([CUDA headers not found])])
+    AC_CHECK_HEADER([cuda.h], [cuda_found=yes], [AC_MSG_ERROR([CUDA driver header not found])])
+    AC_CHECK_HEADER([cuda_runtime_api.h], [cuda_found=yes], [AC_MSG_ERROR([CUDA runtime header not found])])
     AM_CONDITIONAL(WITH_CUDA, true)
 ])
 
