@@ -52,6 +52,14 @@ AS_IF([test "$enable_mpi2_dynamic" = "yes"],[
     AC_DEFINE([HAVE_MPI2_DYNAMIC], [1], [Define to enable MPI2 dynamic process management tests])
 ])
 
+AC_ARG_ENABLE([device-buffers],
+    AS_HELP_STRING([--enable-device-buffers], [Allocate MPI buffers on the GPU device. [[default=no]]]),
+    [enable_device_buffers=yes])
+AS_IF([test "$enable_device_buffers" = "yes"],[
+    AC_DEFINE([USE_DEVICE_BUFFERS], [1], [Define to enable allocating MPI buffers on the GPU device.])
+    AC_CHECK_HEADER([cuda.h], [cuda_found=yes], [AC_MSG_ERROR([CUDA headers not found])])
+    AM_CONDITIONAL(WITH_CUDA, true)
+])
 
 dnl Checks for header files and compiler characteristics.
 AC_C_CONST

@@ -18,6 +18,9 @@
 #ifdef HAVE_STRINGS_H
 #  include <strings.h>
 #endif
+#ifdef USE_DEVICE_BUFFERS
+#  include <cuda.h>
+#endif
 #include <mpi.h>
 #include "mpi_test_suite.h"
 
@@ -560,11 +563,24 @@ char * tst_type_allocvalues (const int type, const int values_num)
   CHECK_ARG (type, NULL);
   type_size = tst_type_gettypesize(type);
 
-  buffer = malloc ((values_num+OVERHEAD) * type_size);
+  size_t bytes = (values_num+OVERHEAD) * type_size;
+#ifdef USE_DEVICE_BUFFERS
+  // cudaMalloc requires a pointer to a pointer
+  cudaMalloc( (void**)&buffer, bytes );
+#else
+  buffer = malloc (bytes);
+#endif
+
   if (buffer == NULL)
       ERROR (errno, "malloc");
 
+#ifdef USE_DEVICE_BUFFERS
+  cudaMemset (buffer, DEFAULT_INIT_BYTE, (values_num+OVERHEAD) * type_size);
+  cudaDeviceSynchronize();
+#else
   memset (buffer, DEFAULT_INIT_BYTE, (values_num+OVERHEAD) * type_size);
+#endif
+
   buffer -= tst_type_gettypelb(type);
 
   return buffer;
@@ -575,7 +591,12 @@ int tst_type_freevalues (const int type, char * buffer, const int values_num)
   CHECK_ARG (type, -1);
 
   buffer += tst_type_gettypelb(type);
+
+#ifdef USE_DEVICE_BUFFERS
+  cudaFree(buffer);
+#else
   free (buffer);
+#endif
 
   return 0;
 }

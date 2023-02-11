@@ -4,6 +4,10 @@ bin_PROGRAMS = mpi_test_suite
 
 EXTRA_DIST = cmdline.ggo
 
+if WITH_CUDA
+AM_LDFLAGS = -lcudart
+endif
+
 cmdline.c cmdline.h: cmdline.ggo
 	gengetopt < $<
 
