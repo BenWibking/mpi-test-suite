@@ -564,10 +564,12 @@ char * tst_type_allocvalues (const int type, const int values_num)
   type_size = tst_type_gettypesize(type);
 
   size_t bytes = (values_num+OVERHEAD) * type_size;
+
 #ifdef USE_DEVICE_BUFFERS
-  // cudaMalloc requires a pointer to a pointer
+  printf("Allocating DEVICE buffer of size %zu\n", bytes);
   cudaMalloc( (void**)&buffer, bytes );
 #else
+  printf("Allocating HOST buffer of size %zu\n", bytes);
   buffer = malloc (bytes);
 #endif
 

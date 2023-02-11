@@ -60,7 +60,7 @@ AS_IF([test "$enable_device_buffers" = "yes"],[
     AC_CHECK_HEADER([cuda.h], [cuda_found=yes], [AC_MSG_ERROR([CUDA driver header not found])])
     AC_CHECK_HEADER([cuda_runtime_api.h], [cuda_found=yes], [AC_MSG_ERROR([CUDA runtime header not found])])
     AM_CONDITIONAL(WITH_CUDA, true)
-])
+], [AM_CONDITIONAL(WITH_CUDA, false)])
 
 dnl Checks for header files and compiler characteristics.
 AC_C_CONST
