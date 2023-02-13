@@ -551,6 +551,7 @@ int tst_type_freevalues (const int type, char * buffer, const int values_num)
           }                                                                                      \
 */
 
+#if 0
 // TODO(ben): copy values to device
 #define TST_TYPE_SET(tst_type,c_type,c_type_caps)                                                \
   case tst_type:                                                                                 \
@@ -799,7 +800,7 @@ int tst_type_freevalues (const int type, char * buffer, const int values_num)
       }                                                                                          \
       break;                                                                                     \
     }
-
+#endif
 
 int tst_type_setvalue (int type, char * buffer, int type_set, long long direct_value)
 {
@@ -812,6 +813,7 @@ int tst_type_setvalue (int type, char * buffer, int type_set, long long direct_v
   memset (buffer, DEFAULT_INIT_BYTE, tst_type_gettypesize (type));
 #endif
   
+#if 0
   /* Workaround a small problem. In many tests we want to set
    * a float or a double or a long double to 0. This is all
    * well and good, but if I was to set it by value,
@@ -896,6 +898,8 @@ int tst_type_setvalue (int type, char * buffer, int type_set, long long direct_v
       default: ERROR (EINVAL, "Unknown type in tst_type_setvalue");
     }
   /* tst_type_hexdump ("Setting:", buffer, tst_type_gettypesize (type)); */
+#endif
+
   return 0;
 }
 
