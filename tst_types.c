@@ -596,7 +596,7 @@ int tst_type_freevalues (const int type, char * buffer, const int values_num)
       break;                                                                                     \
     }
 
-
+// TODO(ben): copy values to device
 #define TST_TYPE_SET_STRUCT(tst_type,c_type,c_type_caps)                                         \
   case tst_type:                                                                                 \
     {                                                                                            \
@@ -636,7 +636,7 @@ int tst_type_freevalues (const int type, char * buffer, const int values_num)
       break;                                                                                     \
     }
 
-
+// TODO(ben): copy values to device
 #define TST_TYPE_SET_CONTI(tst_type,c_type,c_type_caps)                                          \
   case tst_type:                                                                                 \
     {                                                                                            \
@@ -663,7 +663,7 @@ int tst_type_freevalues (const int type, char * buffer, const int values_num)
       break;                                                                                     \
     }
 
-
+// TODO(ben): copy values to device
 #define TST_TYPE_SET_STRUCT_MIX(tst_type,c_type,c_type_caps)                                     \
   case tst_type:                                                                                 \
     {                                                                                            \
@@ -747,7 +747,7 @@ int tst_type_freevalues (const int type, char * buffer, const int values_num)
       break;                                                                                     \
     }
 
-
+// TODO(ben): copy values to device
 #define TST_TYPE_SET_STRUCT_MIX_ARRAY(tst_type,c_type,c_type_caps)                               \
   case tst_type:                                                                                 \
     {                                                                                            \
