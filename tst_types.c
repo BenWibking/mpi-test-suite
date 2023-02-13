@@ -862,7 +862,6 @@ int tst_type_setvalue (int type, char * buffer, int type_set, long long direct_v
         TST_TYPE_SET (TST_MPI_UB, char, CHAR);
       */
 
-/*
       TST_TYPE_SET_STRUCT (TST_MPI_FLOAT_INT, struct tst_mpi_float_int, FLT);
       TST_TYPE_SET_STRUCT (TST_MPI_DOUBLE_INT, struct tst_mpi_double_int, DBL);
       TST_TYPE_SET_STRUCT (TST_MPI_LONG_INT, struct tst_mpi_long_int, LONG);
